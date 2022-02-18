@@ -1,4 +1,4 @@
-//...
+
 var fs = require('fs');
 var path = require('path');
 //配置文件检查
@@ -42,10 +42,6 @@ const ws = bot.createWebsocket(Config);
 ws.on('READY', data => {
 console.log('[bot启动] 版本:', data.msg.version , '\n[bot启动] 用户id:' , data.msg.user.id , '\n[bot启动] 用户名:' , data.msg.user.username , '\n[bot启动] bot状态:' , data.msg.user.bot);
 });
-ws.on('ERROR', data => {
-console.warn('[bot报错] 详细信息 :', data);
-});
-
 
 ws.on('GUILD_MESSAGES', data => {
     let msg = data.msg.content;
@@ -65,12 +61,14 @@ ws.on('GUILD_MESSAGES', data => {
                 }
             })
             .catch(err => {
-                // err信息错误码请参考API文档错误码描述
-                console.log(err);
+                console.log(err);// err信息错误码请参考API文档错误码描述
             });       
     }
 });
-
 ws.on('AT_MESSAGES', data => {
 console.log('[@消息] 信息接收 :', data);
 });
+
+ws.on('ERROR', data => {
+    console.warn('[bot报错] 详细信息 :', data);
+    });
